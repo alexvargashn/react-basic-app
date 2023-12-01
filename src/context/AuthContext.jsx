@@ -14,16 +14,26 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     const signUp = async (user) => {
-        const res = await registerRequest(user);
-        setUser(res.data);
-        console.log(res.data);
+        try {
+            const res = await registerRequest(user);
+            setUser(res.data);
+            setIsAuthenticated(true);
+            console.log(res.data);     
+        } catch (error) {
+            console.log(error.response.data.errors);
+            //console.log(error.response.data['errors']);
+            setErrors(error.response.data.errors);
+        }
     }
     return (
         <AuthContext.Provider value={{
             signUp, 
-            user
+            user,
+            isAuthenticated,
+            errors
         }}>
             { children }
         </AuthContext.Provider>
