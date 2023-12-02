@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
 
@@ -9,8 +10,10 @@ const LoginPage = () => {
         formState: { errors }
     } = useForm();
 
+    const { signIn } = useAuth();
+
     const onSubmit = handleSubmit(data => {
-        console.log(data)
+        signIn(data);
     })
 
     return (
