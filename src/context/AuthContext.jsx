@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { registerRequest, loginRequest } from '../api/auth'
+import { set } from 'react-hook-form';
 
 export const AuthContext =  createContext();
 
@@ -20,11 +21,8 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await registerRequest(user);
             setUser(res.data);
-            setIsAuthenticated(true);
-            console.log(res.data);     
+            setIsAuthenticated(true);  
         } catch (error) {
-            console.log(error.response.data.errors);
-            //console.log(error.response.data['errors']);
             setErrors(error.response.data.errors);
         }
     }
@@ -34,11 +32,24 @@ export const AuthProvider = ({ children }) => {
             const res = await loginRequest(user);
             console.log(res);     
         } catch (error) {
-            // console.log(error.response.data.errors);
-            //console.log(error.response.data['errors']);
-            // setErrors(error.response.data.errors);
+            console.log(error.response.data);
+            if(error.response.data.errors) {
+                setErrors(error.response.data.errors)
+            } else {
+                setErrors([error.response.data]);
+            }
         }
     }
+
+    useEffect(() => {
+      if(errors.length > 0) {
+        const timer = setTimeout(() => {
+            setErrors([]);
+        }, 5000);
+        return () => clearTimeout(timer);
+      }
+    }, [errors]);
+    
 
     return (
         <AuthContext.Provider value={{

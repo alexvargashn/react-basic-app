@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const RegisterPage = () => {
     const { 
@@ -52,6 +52,9 @@ const RegisterPage = () => {
                     Register
                 </button>
             </form>
+            <p className='mt-2 flex gap-x-2 justify-between'>
+                    ¿Ya tienes una cuenta? <Link to='/login' className='text-sky-500'>Login</Link>
+                </p>
         </div>
     )
 }
