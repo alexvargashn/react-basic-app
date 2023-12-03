@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from './axios';
 
-const API = 'http://localhost:8080/api';
+export const registerRequest = user => axios.post(`/users`, user);
 
-export const registerRequest = user => axios.post(`${API}/users`, user);
+export const loginRequest = user => axios.post(`/auth/login`, user);
 
-export const loginRequest = user => axios.post(`${API}/auth/login`, user)
+export const verifyTokenRequest = (token) => axios.get('/auth/verify', {headers: {'rs_token': token}});   
