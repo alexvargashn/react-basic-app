@@ -17,9 +17,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <HomePage/> } /> 
-          <Route path='/login' element={ <LoginPage /> } /> 
-          <Route path='/register' element={ <RegisterPage /> } /> 
-          <Route element={ <ProtectedRoute/> }>
+            <Route element={ <ProtectedRoute/> }>
             <Route path='/profile' element={ <ProfilePage /> } /> 
             <Route path='/categories' element={ <CategoriesPage /> } /> 
             <Route path='/categories/:id' element={ <CategoryFormPage /> } /> 
@@ -28,6 +26,8 @@ export default function App() {
             <Route path='/products/:id' element={ <ProductFormPage /> } /> 
             <Route path='/add-product' element={ <ProductFormPage /> } /> 
           </Route>
+          <Route path='/login' element={ <LoginPage /> } /> 
+          <Route path='/register' element={ <RegisterPage /> } /> 
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [errors, setErrors] = useState([]);
 
     const signUp = async (user) => {
@@ -55,28 +56,30 @@ export const AuthProvider = ({ children }) => {
     }, [errors]);
 
     useEffect(() => {
-        async function checkLogin() {
-            const cookies = Cookies.get();
-
-            if (cookies.rs_token) {
-                try {
-                    const res = await verifyTokenRequest(cookies.rs_token);
-                    console.log(res);
-                    if (res.data) {
-                        setIsAuthenticated(true);
-                        setUser(res.data.user);
-                    } else {
-                        setIsAuthenticated(false);
-                        setUser(null);
-                    }
-                } catch (error) {
-                    setIsAuthenticated(false);
-                    setUser(null);
-                }
-            }
-        }
+        const checkLogin = async () => {
+          const cookies = Cookies.get();
+          if (!cookies.rs_token) {
+            setIsAuthenticated(false);
+            setLoading(false);
+            return;
+          }
+    
+          try {
+            const res = await verifyTokenRequest(cookies.rs_token);
+            console.log(res);
+            if (!res.data) return setIsAuthenticated(false);
+            setIsAuthenticated(true);
+            setUser(res.data);
+            setLoading(false);
+          } catch (error) {
+            setIsAuthenticated(false);
+            setLoading(false);
+          }
+        };
         checkLogin();
-    }, [])
+      }, []);
+
+
 
 
 
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }) => {
             signIn,
             user,
             isAuthenticated,
+            loading,
             errors
         }}>
             {children}
