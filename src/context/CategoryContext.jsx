@@ -23,6 +23,15 @@ export const CategoryProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([]);
 
+    const getCategories = async () => {
+        try {
+            const res = await getCategoriesRequest();
+            setCategories(res.data.categories);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const createCategory = async (category) => {
         console.log(category)
         const res = await createCategoryRequest(category);
@@ -32,6 +41,7 @@ export const CategoryProvider = ({ children }) => {
     return (
         <CategoryContext.Provider value={{
             categories,
+            getCategories,
             createCategory
         }}>
             {children}

@@ -1,26 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useCategory } from '../context/CategoryContext'
 
 const CategoriesPage = () => {
-  const { register, handleSubmit } = useForm();
+  const { getCategories, categories } = useCategory();
 
-  const onSubmit = handleSubmit( (data) => {
-    console.log(data);
-  })
+  useEffect(() => {
+    getCategories();
+  }, [])
+
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text" placeholder='Category name'
-          {...register('name')}
-          autoFocus
-        />
-        <textarea
-          rows="4" placeholder='Category description'>
-          {...register('description')}
-        </textarea>
-        <button>Save</button>
-      </form>
+      {
+        categories.map( category => {
+          return (
+            <div key={category._id}>
+              <h1>{ category.name }</h1>
+              <p>{ category.description }</p>
+            </div>
+          )
+        })
+      }
     </div>
   )
 }

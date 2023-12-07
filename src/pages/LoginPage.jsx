@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
 
@@ -11,11 +12,17 @@ const LoginPage = () => {
         formState: { errors }
     } = useForm();
 
-    const { signIn, errors: signInErrors } = useAuth();
+    const { signIn, errors: signInErrors, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const onSubmit = handleSubmit(data => {
         signIn(data);
-    })
+    });
+
+    useEffect(() => {
+      if(isAuthenticated) navigate('/categories');
+    }, [isAuthenticated])
+    
 
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
