@@ -1,5 +1,6 @@
 import React from 'react'
 import { useCategory } from '../context/CategoryContext';
+import { Link } from 'react-router-dom';
 
 const CategoryCard = ({ category }) => {
 
@@ -13,7 +14,7 @@ const CategoryCard = ({ category }) => {
                     <button onClick={ () => {
                         deleteCategory(category._id);
                     }}>delete</button>
-                    <button>edit</button>
+                    <Link to={`/categories/${category._id}`}>edit</Link>
                 </div>
             </header>
             <p className='text-slate-300'>{category.description}</p>

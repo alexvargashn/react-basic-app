@@ -32,10 +32,23 @@ export const CategoryProvider = ({ children }) => {
         }
     }
 
+    const getCategory = async (id) => {
+        try {
+            const res = getCategoryRequest(id);
+            return res;
+        } catch (error) {
+            return error;
+        }
+    }
+
     const createCategory = async (category) => {
-        console.log(category)
         const res = await createCategoryRequest(category);
-        console.log(res);
+        return res;
+    }
+
+    const updateCategory = async (id, category) => {
+        const res = await updateCategoryRequest(id, category);
+        return res;
     }
 
     const deleteCategory = async( id ) => {
@@ -51,7 +64,9 @@ export const CategoryProvider = ({ children }) => {
         <CategoryContext.Provider value={{
             categories,
             getCategories,
+            getCategory,
             createCategory,
+            updateCategory,
             deleteCategory
         }}>
             {children}
