@@ -1,14 +1,17 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useCategory } from '../context/CategoryContext';
+import { useNavigate } from 'react-router-dom';
 
 const CategorieFormPage = () => {
   const { register, handleSubmit } = useForm();
   const { categories, createCategory } = useCategory();
+  const navigate = useNavigate();
   console.log(categories);
 
   const onSubmit = handleSubmit((data) => {
     createCategory(data);
+    navigate('/categories');
   })
   return (
     <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>

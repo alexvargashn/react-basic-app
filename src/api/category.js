@@ -12,4 +12,4 @@ export const createCategoryRequest = (category) => axios.post('/categories', cat
 
 export const updateCategoryRequest = (category) => axios.put(`/categories/${id}`, category);
 
-export const deleteCategoriesRequest = (id) => axios.get(`/categories/${id}`);
+export const deleteCategoriesRequest = (id) => axios.delete(`/categories/${id}`, {headers: {'rs_token': cookies.rs_token}});

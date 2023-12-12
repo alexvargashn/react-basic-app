@@ -18,19 +18,22 @@ const Navbar = () => {
                             {`Welcome ${user.name}`}
                         </li>
                         <li>
-                            <Link to='/categories'>Categories</Link>
+                            <Link to='/categories' className='bg-indigo-500 px-4 py-1 rounded-sm'>Categories</Link>
                         </li>
                         <li>
-                            <Link to='/login' onClick={ () => {logout()}}>Logout</Link>
+                            <Link 
+                                to='/login'
+                                onClick={ logout }
+                            >Logout</Link>
                         </li>
                     </>
                 ) : (
                     <>
                         <li>
-                            <Link to='/login'>Login</Link>
+                            <Link to='/login' className='bg-indigo-500 px-4 py-1 rounded-sm'>Login</Link>
                         </li>
                         <li>
-                            <Link to='/register'>Register</Link>
+                            <Link to='/register' className='bg-indigo-500 px-4 py-1 rounded-sm'>Register</Link>
                         </li>
                     </>
                 )}

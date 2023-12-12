@@ -38,11 +38,21 @@ export const CategoryProvider = ({ children }) => {
         console.log(res);
     }
 
+    const deleteCategory = async( id ) => {
+        try {
+            const { data } = await deleteCategoriesRequest( id );
+            if(data.ok) setCategories(categories.filter(c => c._id !== id));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <CategoryContext.Provider value={{
             categories,
             getCategories,
-            createCategory
+            createCategory,
+            deleteCategory
         }}>
             {children}
         </CategoryContext.Provider>

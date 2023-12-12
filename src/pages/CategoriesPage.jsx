@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useCategory } from '../context/CategoryContext'
+import CategoryCard from '../components/CategoryCard'
 
 const CategoriesPage = () => {
   const { getCategories, categories } = useCategory();
@@ -10,15 +11,10 @@ const CategoriesPage = () => {
   }, [])
 
   return (
-    <div>
+    <div className='grid grid-cols-3 gap-2'>
       {
         categories.map( category => {
-          return (
-            <div key={category._id}>
-              <h1>{ category.name }</h1>
-              <p>{ category.description }</p>
-            </div>
-          )
+          return <CategoryCard category={category} key={category._id} />
         })
       }
     </div>
