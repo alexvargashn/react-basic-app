@@ -10,26 +10,33 @@ import ProfilePage from './pages/ProfilePage'
 import HomePage from './pages/HomePage'
 import ProductFormPage from './pages/ProductFormPage'
 import ProtectedRoute from './ProtectedRoute'
+import { CategoryProvider } from './context/CategoryContext'
+import Navbar from './components/Navbar'
 
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={ <HomePage/> } /> 
-            <Route element={ <ProtectedRoute/> }>
-            <Route path='/profile' element={ <ProfilePage /> } /> 
-            <Route path='/categories' element={ <CategoriesPage /> } /> 
-            <Route path='/categories/:id' element={ <CategoryFormPage /> } /> 
-            <Route path='/add-category' element={ <CategoryFormPage /> } /> 
-            <Route path='/products' element={ <ProductsPage /> } /> 
-            <Route path='/products/:id' element={ <ProductFormPage /> } /> 
-            <Route path='/add-product' element={ <ProductFormPage /> } /> 
-          </Route>
-          <Route path='/login' element={ <LoginPage /> } /> 
-          <Route path='/register' element={ <RegisterPage /> } /> 
-        </Routes>
-      </BrowserRouter>
+      <CategoryProvider>
+        <BrowserRouter>
+          <main className='container mx-auto px-10'>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/categories' element={<CategoriesPage />} />
+                <Route path='/categories/:id' element={<CategoryFormPage />} />
+                <Route path='/add-category' element={<CategoryFormPage />} />
+                <Route path='/products' element={<ProductsPage />} />
+                <Route path='/products/:id' element={<ProductFormPage />} />
+                <Route path='/add-product' element={<ProductFormPage />} />
+              </Route>
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/register' element={<RegisterPage />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </CategoryProvider>
     </AuthProvider>
   )
 }

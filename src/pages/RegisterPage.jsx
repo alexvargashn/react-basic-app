@@ -13,7 +13,7 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/tasks');
+        if (isAuthenticated) navigate('/categories');
     }, [isAuthenticated])
 
     const onSubmit = handleSubmit(async (values) => {
@@ -50,7 +50,9 @@ const RegisterPage = () => {
                         {...register('password', { required: true })}
                     />
                     {errors.password && <p className='text-red-500'> Password is required</p>}
-                    <button type="submit">
+                    <button 
+                        className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'
+                        type="submit">
                         Register
                     </button>
                 </form>
