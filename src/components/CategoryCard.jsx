@@ -11,10 +11,14 @@ const CategoryCard = ({ category }) => {
             <header className='flex justify-between'>
                 <h1 className='text-2xl font-bold'>{category.name}</h1>
                 <div className='flex gap-x-2 items-center'>
-                    <button onClick={ () => {
+                    <button
+                        className='bg-red-500 hover:bg-red-600 text-white px-1  py-1 rounded-md '
+                        onClick={ () => {
                         deleteCategory(category._id);
                     }}>delete</button>
-                    <Link to={`/categories/${category._id}`}>edit</Link>
+                    <Link 
+                        className='bg-blue-500 hover:bg-blue-600 text-white px-1 py-1 rounded-md'
+                        to={`/categories/${category._id}`}>edit</Link>
                 </div>
             </header>
             <p className='text-slate-300'>{category.description}</p>
